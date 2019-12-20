@@ -2,9 +2,15 @@
 
 import qualified Data.ByteString as B
 
-main = do
-    let space = 32
-    let underscore = 95
+sanitise :: B.ByteString -> B.ByteString
+sanitise = B.map (\w -> if w == space then underscore else w) where
+    space = 32
+    underscore = 95 
+
+sanitiseFile :: IO ()
+sanitiseFile = do
     fileContent <- B.readFile "io.txt" 
-    B.writeFile "io-up.txt" $ B.map (\w -> if w == space then underscore else w) fileContent
-    return ()
+    B.writeFile "io-sanitised.txt" $ sanitise fileContent
+
+main = sanitiseFile
+
