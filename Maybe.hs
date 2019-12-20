@@ -7,6 +7,7 @@ import Data.Monoid
 import Data.Traversable
 import Data.Functor
 import Control.Applicative
+import Control.Monad
 
 data Maybe a = Just a | Nothing
 
@@ -63,4 +64,7 @@ instance Traversable Maybe where
     traverse f (Just a) = fmap Just $ f a
     traverse _ Nothing = pure Nothing
 
-
+instance Monad Maybe where
+    return = Just
+    Just x >>= k = k x
+    Nothing >>= _ = Nothing

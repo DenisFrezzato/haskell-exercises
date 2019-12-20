@@ -6,6 +6,7 @@ import Data.Monoid
 import Data.Traversable
 import Data.Functor
 import Control.Applicative
+import Control.Monad
 
 data Either a b = Left a | Right b
 
@@ -61,4 +62,7 @@ instance Traversable (Either a) where
     traverse _ (Left a) = pure $ Left a
     traverse f (Right b) = fmap Right $ f b
 
-
+instance Monad (Either a) where
+    return = Right
+    Right b >>= k = k b
+    Left a >>= _ = Left a
