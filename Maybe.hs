@@ -13,7 +13,7 @@ data Maybe a = Just a | Nothing
 
 maybe :: b -> (a -> b) -> Maybe a -> b
 maybe _ f (Just a) = f a
-maybe b _ (Nothing) = b
+maybe b _ Nothing = b
 
 isJust :: Maybe a -> Bool
 isJust (Just _) = True

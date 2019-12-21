@@ -24,4 +24,4 @@ instance Applicative List where
 
 instance Traversable List where
     traverse _ Nil = pure Nil
-    traverse f (Cons a as) = fmap Cons (f a) <*> (traverse f as)
+    traverse f (Cons a as) = fmap Cons (f a) <*> traverse f as
