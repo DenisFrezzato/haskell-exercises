@@ -20,4 +20,4 @@ instance Applicative Pair where
     Pair f g <*> Pair x y = Pair (f x) (g y)
 
 instance Traversable Pair where
-    traverse f (Pair x y) = fmap Pair (f x) <*> (f y)
+    traverse f (Pair x y) = Pair <$> f x <*> f y

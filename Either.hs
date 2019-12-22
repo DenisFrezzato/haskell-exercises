@@ -55,12 +55,12 @@ instance Functor (Either a) where
 
 instance Applicative (Either a) where
     pure = Right
-    Right f <*> x = fmap f x
+    Right f <*> x = f <$> x
     Left a <*> _ = Left a
 
 instance Traversable (Either a) where
     traverse _ (Left a) = pure $ Left a
-    traverse f (Right b) = fmap Right $ f b
+    traverse f (Right b) = Right <$> f b
 
 instance Monad (Either a) where
     return = Right

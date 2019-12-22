@@ -14,16 +14,16 @@ instance Foldable Tree where
 
 instance Functor Tree where
     fmap _ Leaf = Leaf
-    fmap f (Tree a tl tr) = Tree (f a) (fmap f tl) (fmap f tr)
+    fmap f (Tree a tl tr) = Tree (f a) (f <$> tl) (f <$> tr)
 
 instance Applicative Tree where
     pure x = Tree x Leaf Leaf
-    Tree f ftl ftr <*> (Tree a tl tn) = Tree (f a) (ftl <*> tl) (ftr <*> tr)
+    Tree f ftl ftr <*> (Tree a tl tr) = Tree (f a) (ftl <*> tl) (ftr <*> tr)
     _ <*> Leaf = Leaf
     Leaf <*> _ = Leaf
 
 instance Traversable Tree where
     traverse _ Leaf = pure Leaf
-    traverse f (Tree a tl tr) = fmap Tree (f a) <*> traverse f tl <*> traverse f tr 
+    traverse f (Tree a tl tr) = Tree <$> f a <*> traverse f tl <*> traverse f tr 
 
 

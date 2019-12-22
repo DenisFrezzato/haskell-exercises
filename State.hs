@@ -12,7 +12,7 @@ instance Functor (State s) where
 
 instance Applicative (State s) where
     pure x = State (\s -> (s, x))
-    State fs <*> State a = State (\s -> fmap (snd $ fs s) $ a s)
+    State fs <*> State a = State (\s -> snd (fs s) <$> a s)
 
 instance Monad (State s) where
     return x = State (\s -> (s, x))

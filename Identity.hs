@@ -16,7 +16,7 @@ instance Functor Identity where
     fmap f (Identity a) = Identity $ f a
 
 instance Traversable Identity where
-    traverse f (Identity a) = fmap Identity $ f a
+    traverse f (Identity a) = Identity <$> f a
 
 instance Applicative Identity where
     pure = Identity

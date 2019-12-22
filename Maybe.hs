@@ -61,7 +61,7 @@ instance Applicative Maybe where
     Nothing <*> _ = Nothing
 
 instance Traversable Maybe where
-    traverse f (Just a) = fmap Just $ f a
+    traverse f (Just a) = Just <$> f a
     traverse _ Nothing = pure Nothing
 
 instance Monad Maybe where

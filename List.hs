@@ -22,7 +22,7 @@ instance Semigroup (List a) where
 
 instance Functor List where
     fmap _ Nil = Nil
-    fmap f (Cons a as) = Cons (f a) (fmap f as)
+    fmap f (Cons a as) = Cons (f a) (f <$> as)
 
 instance Applicative List where
     pure x = Cons x Nil
@@ -32,7 +32,7 @@ instance Applicative List where
 
 instance Traversable List where
     traverse _ Nil = pure Nil
-    traverse f (Cons a as) = fmap Cons (f a) <*> traverse f as
+    traverse f (Cons a as) = Cons <$> f a <*> traverse f as
 
 instance Monad List where
     return x = Cons x Nil
